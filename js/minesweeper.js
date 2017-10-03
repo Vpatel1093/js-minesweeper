@@ -1,41 +1,25 @@
-// Code borrowed from js-snake as template
-
-// In game variables
-var snake = [];
-var score = 0;
-var multiplier = 1;
-var fruitCell = [];
-var gameInProgress = false;
-var currentDirection = '';
-var lastDirection = '';
-const left = 37;
-const up = 38;
-const right = 39;
-const down = 40;
-
 function initGrid(n) {
   const rows = n;
   const columns = n;
 
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
-      $('#grid').append('<div id="row' + i + '-col' + j + '" class="cell empty"></div>');
+      $('#grid').append('<div id="row' + i + '-col' + j + '" class="cell"></div>');
     };
   };
 };
 
-
-function resetGame() {
-
-}
-
-function placeMines() {
+function placeMines(n) {
   // do {
   //   var fruitRow = Math.floor(Math.random()*40);
   //   var fruitColumn = Math.floor(Math.random()*40);
   //   fruitCell = $('#row' + fruitRow + '-col' + fruitColumn);
   // } while(fruitCell.hasClass('snake'));
   // fruitCell.addClass('apple').removeClass('empty');
+};
+
+function markNumbers() {
+
 };
 
 function playGame() {
@@ -114,17 +98,39 @@ function moveSnake() {
 };
 
 $(document).ready(function initGame() {
-  // initGrid();
-  // initSnake();
-  // placeFruit();
-  //
-  // $(document).keydown(function startGame(key) {
-  //   if (!gameInProgress) {
-  //     currentDirection = key.which;
-  //     if (currentDirection === left || currentDirection === up || currentDirection === right || currentDirection === down) {
-  //       gameInProgress = true;
-  //       playGame();
-  //     };
-  //   };
-  // });
+  $('#easy').click(function startGame() {
+    var grid = $('#grid');
+    grid.empty();
+    grid.css('height', '180px');
+    grid.css('width', '180px');
+    grid.css('border','2px solid #000');
+    initGrid(9);
+    placeMines(10);
+    markNumbers();
+    playGame();
+  });
+
+  $('#medium').click(function startGame() {
+    var grid = $('#grid');
+    grid.empty();
+    grid.css('height', '320px');
+    grid.css('width', '320px');
+    grid.css('border','2px solid #000');
+    initGrid(16);
+    placeMines(40);
+    markNumbers();
+    playGame();
+  });
+
+  $('#hard').click(function startGame() {
+    var grid = $('#grid');
+    grid.empty();
+    grid.css('height', '480px');
+    grid.css('width', '480px');
+    grid.css('border','2px solid #000');
+    initGrid(24);
+    placeMines(99);
+    markNumbers();
+    playGame();
+  });
 });
