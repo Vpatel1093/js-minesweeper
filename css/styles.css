@@ -1,0 +1,25 @@
+body {
+  background: #e3e3e3;
+}
+
+button {
+  
+}
+
+#grid {
+  background-color: grey;
+  margin: 0 auto;
+  max-width: 404px;
+  max-height: 404px;
+}
+
+.cell {
+  width: 10px;
+  height: 10px;
+  float: left;
+  background-color: #282828;
+}
+
+.mine {
+  color: red;
+}
