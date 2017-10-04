@@ -22,10 +22,14 @@ button {
   float: left;
   background-color: #c2c2c2;
   border: 1px solid #e3e3e3;
+  color: blue;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
 }
 
 .mine {
-  color: red;
   background: url('../images/mine.jpg') no-repeat center;
   background-size: 100% 100%;
 }
