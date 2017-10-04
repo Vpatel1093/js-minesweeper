@@ -29,6 +29,12 @@ button {
   line-height: 20px;
 }
 
+.unclicked {
+  font-size: 0px !important;
+  background: none !important;
+  background-color: #c2c2c2 !important;
+}
+
 .mine {
   background: url('../images/mine.jpg') no-repeat center;
   background-size: 100% 100%;
