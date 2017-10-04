@@ -26,4 +26,6 @@ button {
 
 .mine {
   color: red;
+  background: url('../images/mine.jpg') no-repeat center;
+  background-size: 100% 100%;
 }

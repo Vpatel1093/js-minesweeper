@@ -9,13 +9,15 @@ function initGrid(n) {
   };
 };
 
-function placeMines(n) {
-  // do {
-  //   var fruitRow = Math.floor(Math.random()*40);
-  //   var fruitColumn = Math.floor(Math.random()*40);
-  //   fruitCell = $('#row' + fruitRow + '-col' + fruitColumn);
-  // } while(fruitCell.hasClass('snake'));
-  // fruitCell.addClass('apple').removeClass('empty');
+function placeMines(numMines, gridDims) {
+  for(var i = 0; i < numMines; i++) {
+    do {
+      var mineRow = Math.floor(Math.random()*gridDims);
+      var mineColumn = Math.floor(Math.random()*gridDims);
+      mineCell = $('#row' + mineRow + '-col' + mineColumn);
+    } while(mineCell.hasClass('mine'));
+    mineCell.addClass('mine');
+  };
 };
 
 function markNumbers() {
@@ -105,7 +107,7 @@ $(document).ready(function initGame() {
     grid.css('width', '180px');
     grid.css('border','2px solid #000');
     initGrid(9);
-    placeMines(10);
+    placeMines(10,9);
     markNumbers();
     playGame();
   });
@@ -117,7 +119,7 @@ $(document).ready(function initGame() {
     grid.css('width', '320px');
     grid.css('border','2px solid #000');
     initGrid(16);
-    placeMines(40);
+    placeMines(40,16);
     markNumbers();
     playGame();
   });
@@ -129,7 +131,7 @@ $(document).ready(function initGame() {
     grid.css('width', '480px');
     grid.css('border','2px solid #000');
     initGrid(24);
-    placeMines(99);
+    placeMines(99,24);
     markNumbers();
     playGame();
   });
