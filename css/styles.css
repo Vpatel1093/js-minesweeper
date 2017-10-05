@@ -39,3 +39,9 @@ button {
   background: url('../images/mine.jpg') no-repeat center;
   background-size: 100% 100%;
 }
+
+.flagged {
+  background: url('../images/flag.png') no-repeat center;
+  background-size: 100% 100%;
+  font-size: 0px !important;
+}

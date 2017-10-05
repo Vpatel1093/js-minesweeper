@@ -1,6 +1,7 @@
 // In game variable
 var gridDims = 0;
 const surroundingCellCoords = [ [-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1], [-1,-1] ];
+var flagsDropped = 0;
 
 function initGrid(n) {
   const rows = n;
@@ -54,14 +55,34 @@ function cellsSurrounding(mineCell) {
 };
 
 function playGame() {
-  // if (gameInProgress) {
-  //   setTimeout(moveSnake,100/(multiplier*.5));
-  //   $('h3').text("Score: " + score);
-  // };
+  $('.cell').mousedown(function(click) {
+    switch (click.which) {
+      // Left click
+      case 1:
+
+        break;
+      // Right click
+      case 3:
+        console.log($(this))
+        if (flagsDropped < 10 && !$(this).hasClass('flagged')) {
+          $(this).addClass('flagged').removeClass('unclicked');
+          flagsDropped++;
+        } else if ($(this).hasClass('flagged')) {
+          $(this).removeClass('flagged').addClass('unclicked');
+          flagsDropped--;
+        };
+        break;
+    };
+    gameStatus();
+  });
 };
 
-$(document).ready(function initGame() {
-  $('#easy').click(function startGame() {
+function gameStatus() {
+
+};
+
+$(document).ready(function() {
+  $('#easy').click(function initGame() {
     gridDims = 9;
     var grid = $('#grid');
     grid.empty();
@@ -74,7 +95,7 @@ $(document).ready(function initGame() {
     playGame();
   });
 
-  $('#medium').click(function startGame() {
+  $('#medium').click(function initGame() {
     gridDims = 16;
     var grid = $('#grid');
     grid.empty();
@@ -87,7 +108,7 @@ $(document).ready(function initGame() {
     playGame();
   });
 
-  $('#hard').click(function startGame() {
+  $('#hard').click(function initGame() {
     gridDims = 24;
     var grid = $('#grid');
     grid.empty();
