@@ -68,7 +68,7 @@ function playGame() {
           } else if ($(this).hasClass('numbered')) {
             $(this).removeClass('unclicked');
           } else if ($(this).hasClass('mine')) {
-            $(this).removeClass('unclicked');
+            $(this).removeClass('unclicked').css('border', '1px solid red');
             gameOver();
           } else if ($(this).text() === '') {
             $(this).removeClass('unclicked');
@@ -78,7 +78,7 @@ function playGame() {
         break;
       // Right click
       case 3:
-        if (flagsDropped < 10 && !$(this).hasClass('flagged')) {
+        if (flagsDropped < 10 && !$(this).hasClass('flagged') && $(this).hasClass('unclicked')) {
           $(this).addClass('flagged').removeClass('unclicked');
           flagsDropped++;
         } else if ($(this).hasClass('flagged')) {
@@ -107,17 +107,26 @@ function uncoverSection(cell) {
 };
 
 function checkForWin() {
+  if ($('.mine.flagged').length == 10) {
+    winGame();
+  };
+};
+
+function winGame() {
+  resetGameVariables();
+  alert('You won!')
 };
 
 function gameOver() {
   resetGameVariables();
-  alert('You lose!')
+  $('.cell').removeClass('unclicked');
+  alert('You lost!');
 };
 
 function resetGameVariables() {
   gridDims = 0;
   flagsDropped = 0;
-}
+};
 
 $(document).ready(function() {
   $('#easy').click(function initGame() {
