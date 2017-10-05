@@ -28,12 +28,15 @@ function placeMines(numMines) {
 function markNumbers() {
   $('.mine').each(function () {
     var surroundingCells = cellsSurrounding($(this))
+    surroundingCells = surroundingCells.filter(function(cell) {
+      return !cell.hasClass('mine');
+    });
     surroundingCells.forEach(function(cell) {
       if (cell.text() > 0) {
         cell.text(parseInt(cell.text()) + 1)
-        cell.addClass('numbered');
       } else if (cell.text() === '') {
         cell.text(1);
+        cell.addClass('numbered');
       };
     });
   });
@@ -49,7 +52,7 @@ function cellsSurrounding(mineCell) {
     surroundingCells.push(surroundingCell)
   });
   surroundingCells = surroundingCells.filter(function(cell) {
-    return cell.length > 0 && !cell.hasClass('mine');
+    return cell.length > 0;
   });
   return surroundingCells;
 };
@@ -59,11 +62,22 @@ function playGame() {
     switch (click.which) {
       // Left click
       case 1:
-
+        if ($(this).hasClass('unclicked')) {
+          if ($(this).hasClass('flagged')) {
+            // Do nothing to flagged cells
+          } else if ($(this).hasClass('numbered')) {
+            $(this).removeClass('unclicked');
+          } else if ($(this).hasClass('mine')) {
+            $(this).removeClass('unclicked');
+            gameOver();
+          } else if ($(this).text() === '') {
+            $(this).removeClass('unclicked');
+            uncoverSection($(this));
+          };
+        };
         break;
       // Right click
       case 3:
-        console.log($(this))
         if (flagsDropped < 10 && !$(this).hasClass('flagged')) {
           $(this).addClass('flagged').removeClass('unclicked');
           flagsDropped++;
@@ -73,13 +87,37 @@ function playGame() {
         };
         break;
     };
-    gameStatus();
+    checkForWin();
   });
 };
 
-function gameStatus() {
-
+function uncoverSection(cell) {
+  var surroundingCells = cellsSurrounding(cell);
+  surroundingCells = surroundingCells.filter(function(cell) {
+    return cell.hasClass('unclicked');
+  });
+  surroundingCells.forEach(function(surroundingCell) {
+    if (surroundingCell.hasClass('numbered')) {
+      surroundingCell.removeClass('unclicked');
+    } else if (surroundingCell.text() === '') {
+      surroundingCell.removeClass('unclicked');
+      uncoverSection(surroundingCell);
+    };
+  });
 };
+
+function checkForWin() {
+};
+
+function gameOver() {
+  resetGameVariables();
+  alert('You lose!')
+};
+
+function resetGameVariables() {
+  gridDims = 0;
+  flagsDropped = 0;
+}
 
 $(document).ready(function() {
   $('#easy').click(function initGame() {
